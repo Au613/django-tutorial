@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  web:
+    build:
+      context: ./django  # Pointing to the 'django' folder where the Dockerfile is located
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./django:/app  # Mount the 'django' folder as /app inside the container
+    ports:
+      - "8000:8000"
+    environment:
+      - DEBUG=1
+    depends_on:
+      - db  # Wait for the db service to be ready before starting the Django app
+
+  db:
+    image: postgres:13  # Use the official PostgreSQL image
+    volumes:
+      - postgres_data:/var/lib/postgresql/data  # Persist PostgreSQL data
+    environment:
+      POSTGRES_DB: mydb
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+    ports:
+      - "5432:5432"
+
+volumes:
+  postgres_data:
