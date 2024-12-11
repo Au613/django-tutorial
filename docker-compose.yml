@@ -25,5 +25,15 @@ services:
     ports:
       - "5432:5432"
 
+  frontend:
+    build:
+      context: ./react-frontend  # Pointing to the 'react-frontend' folder where the Dockerfile is located
+    volumes:
+      - ./react-frontend:/app  # Mount the 'react-frontend' folder as /app inside the container
+    ports:
+      - "3000:3000"  # Expose React development server on port 3000
+    stdin_open: true  # Keep the container's standard input open
+    tty: true         # Allocate a pseudo-TTY for the container
+
 volumes:
   postgres_data:
