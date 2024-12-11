@@ -11,6 +11,9 @@ RUN npm install
 # Copy the rest of the application
 COPY . .
 
+# Set the environment variable for the backend API URL
+ENV REACT_APP_BACKEND_URL=http://web:8000/api
+
 # Expose the React development server port
 EXPOSE 3000
 

@@ -8,6 +8,13 @@ from .models import Question
 
 from django.template import loader
 
+from rest_framework import viewsets
+from .serializers import QuestionSerializer
+
+class QuestionViewSet(viewsets.ModelViewSet):
+    queryset = Question.objects.all()
+    serializer_class = QuestionSerializer
+
 def index(request):
     latest_question_list = Question.objects.order_by("-pub_date")[:5]
     template = loader.get_template("polls/index.html")
